@@ -1,8 +1,20 @@
 // import {WebSocketServer} from 'ws';
 import { Server } from "socket.io";
-// import express from 'express';
-const io = new Server(8000 , {
+import express from 'express';
+import path from 'path'
+const app = express();
+
+const PORT = 8000;
+const io = new Server(PORT , {
    cors : true,
+})
+
+// ----------------------------------------------
+
+const __dirname1 = path.resolve();
+app.use(express.static(path.join(__dirname1,"/web_socket/build")))
+app.get('*',(res,req)=>{
+  res.sendFile(path.resolve(__dirname1,"web_socket","build","index.html"));
 })
 // const app = express();
 // const PORT = 8080;
